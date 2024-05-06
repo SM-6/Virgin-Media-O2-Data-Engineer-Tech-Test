@@ -21,20 +21,20 @@ class FormatOutput(beam.DoFn):
         date, total_amount = element
         yield f'{date}, {total_amount}'
 
-class SumAmountsByDate(beam.PTransform):
+class SumAmountsByDateCompositeTransform(beam.PTransform):
     def expand(self, pcoll):
         return (
             pcoll
             | 'Filter transactions for year' >> beam.ParDo(CheckTimestampYear())
             | 'Extract date and amount' >> beam.ParDo(ExtractDateAmount()) 
-            | 'Sum amounts by date' >> beam.CombinePerKey(sum)  #GROUP BY 
+            | 'Sum amounts by date' >> beam.CombinePerKey(sum)  
             | 'Format output' >> beam.ParDo(FormatOutput())
         )
 
 with beam.Pipeline() as pipeline:
     data = (
         pipeline
-        | 'Read CSV file' >> beam.io.ReadFromText('/Users/Shehryar/Downloads/transactions.csv',  skip_header_lines=1)
-        | 'Sum amounts by date' >> SumAmountsByDate()
-        | 'Write to CSV file' >> beam.io.WriteToText('output/summed_amounts_v4', file_name_suffix='.csv', header='date, total_amount')
+        | 'Read CSV file' >> beam.io.ReadFromText('gs://cloud-samples-data/bigquery/sample-transactions/transactions.csv',  skip_header_lines=1)
+        | 'Sum amounts by date' >> SumAmountsByDateCompositeTransform()
+        | 'Write to JSONL file' >> beam.io.WriteToText('output/results', file_name_suffix='.jsonl.gz', compression_type='gzip', header='date, total_amount')
     )
