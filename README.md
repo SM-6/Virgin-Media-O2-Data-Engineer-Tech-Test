@@ -6,7 +6,7 @@ This project is for the Virgin Media O2 Data Engineering tech test.
 
 **Description**
 
-In accordance with the provided instructions, I've developed a batch pipeline capable of reading a CSV file, executing various data transformation processes, and generating a new file in the designated output location. The complete end-to-end solution is encapsulated in the file named `composite_transform_pipeline_task2.py`, available in this repository.
+In accordance with the provided instructions, I've developed a batch pipeline capable of reading a CSV file, executing various data transformation processes, and generating a new file in the designated output location. For Task 1, I created a Jupyter Notebook for each section, which can be found in the src folder labeled batch_job_task1.ipynb. The complete end-to-end solution for Task 2 is encapsulated in the file named composite_transform_pipeline_task2.py, also available in the src folder of this repository.
 
 ## Instructions
 
@@ -44,5 +44,10 @@ To execute the pipeline on macOS, follow these steps:
 
 7. Run the pipeline script `composite_transform_pipeline_task2.py`, which will generate the desired output file:
    ```bash
-   python composite_transform_pipeline_task2.py
+   python3 composite_transform_pipeline_task2.py
+   ```
+
+8. To run the unit test for the composite transform, execute the following command:
+   ```bash
+   python3 test_composite_transform_pipeline_task2.py
    ```

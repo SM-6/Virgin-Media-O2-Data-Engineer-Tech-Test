@@ -36,5 +36,5 @@ with beam.Pipeline() as pipeline:
         pipeline
         | 'Read CSV file' >> beam.io.ReadFromText('gs://cloud-samples-data/bigquery/sample-transactions/transactions.csv',  skip_header_lines=1)
         | 'Sum amounts by date' >> SumAmountsByDateCompositeTransform()
-        | 'Write to JSONL file' >> beam.io.WriteToText('output/results', file_name_suffix='.jsonl.gz', compression_type='gzip', header='date, total_amount')
+        | 'Write to JSONL file' >> beam.io.WriteToText('../output/results', file_name_suffix='.jsonl.gz', compression_type='gzip', header='date, total_amount')
     )

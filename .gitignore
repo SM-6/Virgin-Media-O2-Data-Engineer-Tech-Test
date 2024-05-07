@@ -1,5 +1,8 @@
+.DS_Store
+
 # Ignore all files within the output directory
 output/
+
 
 
 # Byte-compiled / optimized / DLL files
